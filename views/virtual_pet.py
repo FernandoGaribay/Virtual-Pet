@@ -17,6 +17,7 @@ class VirtualPet(QWidget):
 
         self.setWindowFlags(WINDOW_FLAGS)
         self.setAttribute(WINDOW_ATTRIBUTES)
+        self.setAttribute(Qt.WA_TransparentForMouseEvents)
         self.setFixedSize(HEIGHT, WIDTH)
 
         self.image_path = 'resources/cat.png'
@@ -26,12 +27,12 @@ class VirtualPet(QWidget):
         self.timer.timeout.connect(self.update_position)
         self.timer.start(15)
 
-    def paintEvent(self, event):
+    '''def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
 
         img_rect = self.rect()
-        painter.drawPixmap(img_rect, self.pixmap)
+        painter.drawPixmap(img_rect, self.pixmap)'''
 
     def update_position(self):
         cursor_pos = QApplication.instance().desktop().cursor().pos()
