@@ -20,7 +20,7 @@ class VirtualPet(QWidget):
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setFixedSize(self._HEIGHT, self._WIDTH)
 
-        self.image_path = 'cat.png'
+        self.image_path = 'resources/cat.png'
         self.pixmap = QPixmap(self.image_path)
 
         self.timer = QTimer()

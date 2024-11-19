@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from virtual_pet import VirtualPet
+from views.virtual_pet import VirtualPet
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
