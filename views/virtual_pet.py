@@ -1,24 +1,23 @@
 import sys
 import math
-from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtCore import QTimer, Qt
-from PyQt5.QtGui import QPainter, QColor, QPixmap
 
+from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtCore import QTimer
+from PyQt5.QtGui import QPainter, QPixmap
+
+from config.window_settings import *
+from config.pet_settings import *
 
 class VirtualPet(QWidget):
     def __init__(self):
         super().__init__()
 
-        self._HEIGHT = 50
-        self._WIDTH = 50
-        self._MIN_TRESHOLD = 5
-        self._MAX_TRESHOLD = 50
         self.velocity = 3
         self.threshold = 5
 
-        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setFixedSize(self._HEIGHT, self._WIDTH)
+        self.setWindowFlags(WINDOW_FLAGS)
+        self.setAttribute(WINDOW_ATTRIBUTES)
+        self.setFixedSize(HEIGHT, WIDTH)
 
         self.image_path = 'resources/cat.png'
         self.pixmap = QPixmap(self.image_path)
@@ -40,12 +39,12 @@ class VirtualPet(QWidget):
         current_x = self.x()
         current_y = self.y()
 
-        dx = cursor_pos.x() - (current_x + self._HEIGHT / 2)
-        dy = cursor_pos.y() - (current_y + self._WIDTH / 2)
+        dx = cursor_pos.x() - (current_x + HEIGHT / 2)
+        dy = cursor_pos.y() - (current_y + WIDTH / 2)
         distancia = math.hypot(dx, dy)
 
         if distancia >= self.threshold:
-            self.threshold = self._MIN_TRESHOLD
+            self.threshold = MIN_TRESHOLD
 
             dx /= distancia
             dy /= distancia
@@ -55,4 +54,4 @@ class VirtualPet(QWidget):
 
             self.move(int(new_x), int(new_y))
         else:
-            self.threshold = self._MAX_TRESHOLD
+            self.threshold = MAX_TRESHOLD
