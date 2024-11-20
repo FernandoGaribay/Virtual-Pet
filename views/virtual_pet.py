@@ -17,8 +17,10 @@ class VirtualPet(QWidget):
 
         self.setWindowFlags(WINDOW_FLAGS)
         self.setAttribute(WINDOW_ATTRIBUTES)
-        self.setAttribute(Qt.WA_TransparentForMouseEvents)
         self.setFixedSize(HEIGHT, WIDTH)
+        self.setAttribute(Qt.WA_NoChildEventsForParent, True)
+        self.setWindowFlags(Qt.Window|Qt.X11BypassWindowManagerHint|Qt.WindowStaysOnTopHint|Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TransparentForMouseEvents, True)
 
         self.image_path = 'resources/cat.png'
         self.pixmap = QPixmap(self.image_path)
@@ -27,12 +29,12 @@ class VirtualPet(QWidget):
         self.timer.timeout.connect(self.update_position)
         self.timer.start(15)
 
-    '''def paintEvent(self, event):
+    def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
 
         img_rect = self.rect()
-        painter.drawPixmap(img_rect, self.pixmap)'''
+        painter.drawPixmap(img_rect, self.pixmap)
 
     def update_position(self):
         cursor_pos = QApplication.instance().desktop().cursor().pos()
@@ -52,7 +54,7 @@ class VirtualPet(QWidget):
 
             new_x = current_x + dx * self.velocity
             new_y = current_y + dy * self.velocity
-
+            print(distancia)
             self.move(int(new_x), int(new_y))
         else:
             self.threshold = MAX_TRESHOLD
